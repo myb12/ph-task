@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
-import Register from './components/Register/Register';
 import AuthProvider from './context/AuthProvider';
+import JoinUs from './components/JoinUs/JoinUs';
 
 function App() {
   return (
@@ -22,9 +22,11 @@ function App() {
             <Login />
           </Route>
 
-          <Route path="/register">
-            <Register />
+          <Route path="/join-us">
+            <JoinUs />
           </Route>
+
+          
         </Switch>
       </Router>
     </AuthProvider>

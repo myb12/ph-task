@@ -1,6 +1,7 @@
 import initializeFirebase from "../Firebase/firebase.init";
 import { useState, useEffect } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, getIdToken } from "firebase/auth";
+import axios from "axios";
 
 
 // initialize firebase app
@@ -11,10 +12,12 @@ const useFirebase = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
     const [admin, setAdmin] = useState(false);
+    const [allUsers, setAllUsers] = useState([]);
+    const [loggedInUserFromDB, setLoggedInUserFromDB] = useState();
 
     const auth = getAuth();
 
-    const registerUser = (email, password, name, history) => {
+    const registerUser = (email, password, name, history, userData) => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -23,7 +26,7 @@ const useFirebase = () => {
                 const newUser = { email, displayName: name };
                 setUser(newUser);
                 //save user to db
-                // saveUser(email, name, 'POST');
+                saveUser(email, name, userData, 'POST');
                 // send name to firebase after creation
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -80,26 +83,46 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false));
     }
 
-/*     const saveUser = (email, displayName, method) => {
-        const user = { email, displayName }
-        fetch('https://secret-anchorage-33116.herokuapp.com/users', {
+    const saveUser = (email, displayName, userData, method) => {
+        userData.email = email;
+        userData.displayName = displayName;
+
+        fetch('http://localhost:5000/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(userData)
         })
             .then(res => res.json())
             .then(data => { })
     }
 
+
     useEffect(() => {
-        fetch(`https://secret-anchorage-33116.herokuapp.com/users/${user.email}`)
-            .then(res => res.json())
-            .then(data => {
-                setAdmin(data.admin);
+        axios.get('http://localhost:5000/users')
+            .then(res => {
+                setAllUsers(res.data);
             })
-    }, [user.email]) */
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+
+    useEffect(() => {
+        const loggedIn = allUsers.find(each => each.email === user.email);
+        setLoggedInUserFromDB(loggedIn);
+    }, [allUsers, user.email])
+
+    /*
+        useEffect(() => {
+            fetch(`https://secret-anchorage-33116.herokuapp.com/users/${user.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    setAdmin(data.admin);
+                })
+        }, [user.email]) */
 
     return {
         user,
@@ -110,6 +133,8 @@ const useFirebase = () => {
         loginUser,
         logout,
         admin,
+        allUsers,
+        loggedInUserFromDB
     }
 }
 

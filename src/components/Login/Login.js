@@ -14,6 +14,7 @@ import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Box } from "@mui/system";
+import Navigation from "../Shared/Navigation/Navigation";
 
 export default function Login() {
 
@@ -38,74 +39,76 @@ export default function Login() {
     }
 
     return (
-        <Box style={{ marginTop: 100, marginBottom: 20 }}>
-
-            <div className="login-container">
-                <Grid container className="login-box">
-                    <Grid item sm={12} md={3}></Grid>
-                    <Grid sm={12} md={6} className="form-box">
-                        <Typography variant="h4" className="heading">
-                            Login
-                        </Typography>
-                        <div className="divider" />
-
-                        <form onSubmit={handleSignIn}>
-                            <TextField
-                                required
-                                type="email"
-                                onBlur={handleEmailChange}
-                                className="inputFields"
-                                label="Email address"
-                                variant="standard"
-                                InputProps={{
-                                    // <-- This is where the toggle button is added.
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <MdEmail />
-                                        </InputAdornment>
-                                    )
-                                }}
-                                sx={{ mt: 2 }}
-                            />
-                            <TextField
-                                required
-                                type="password"
-                                onBlur={handlePasswordChange}
-                                className="inputFields"
-                                label="Password"
-                                variant="standard"
-                                InputProps={{
-                                    // <-- This is where the toggle button is added.
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <FaLock />
-                                        </InputAdornment>
-                                    )
-                                }}
-                                sx={{ mt: 2 }}
-                            />
-
-                            <Button type="submit" className="inputFields btn-regular" sx={{ mt: 2 }}>
+        <>
+            <Navigation />
+            <Box style={{ marginTop: 100, marginBottom: 20 }}>
+                <div className="login-container">
+                    <Grid container className="login-box">
+                        <Grid item sm={12} md={3}></Grid>
+                        <Grid item sm={12} md={6} className="form-box">
+                            <Typography variant="h4" className="heading">
                                 Login
-                            </Button>
-                        </form>
+                            </Typography>
+                            <div className="divider" />
 
-                        <Typography variant="body1" sx={{ mt: 2 }}>
-                            Don't have an account? <Link to="/register">Register</Link> here
-                        </Typography>
-                        <div className="or-section">
-                            <div className="or-divider" />
-                            <Typography variant="h5">Or</Typography>
-                            <div className="or-divider" />
-                        </div>
-                        {
-                            authError && <Alert severity="error" sx={{ mt: 2 }}>{authError}</Alert>
-                        }
+                            <form onSubmit={handleSignIn}>
+                                <TextField
+                                    required
+                                    type="email"
+                                    onBlur={handleEmailChange}
+                                    className="inputFields"
+                                    label="Email address"
+                                    variant="standard"
+                                    InputProps={{
+                                        // <-- This is where the toggle button is added.
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <MdEmail />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    sx={{ mt: 2 }}
+                                />
+                                <TextField
+                                    required
+                                    type="password"
+                                    onBlur={handlePasswordChange}
+                                    className="inputFields"
+                                    label="Password"
+                                    variant="standard"
+                                    InputProps={{
+                                        // <-- This is where the toggle button is added.
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <FaLock />
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    sx={{ mt: 2 }}
+                                />
 
+                                <Button type="submit" className="inputFields btn-regular" sx={{ mt: 2 }}>
+                                    Login
+                                </Button>
+                            </form>
+
+                            <Typography variant="body1" sx={{ mt: 2 }}>
+                                Don't have an account? <Link to="/join-us">Register</Link> here
+                            </Typography>
+                            <div className="or-section">
+                                <div className="or-divider" />
+                                <Typography variant="h5">Or</Typography>
+                                <div className="or-divider" />
+                            </div>
+                            {
+                                authError && <Alert severity="error" sx={{ mt: 2 }}>{authError}</Alert>
+                            }
+
+                        </Grid>
+                        <Grid item sm={12} md={3}></Grid>
                     </Grid>
-                    <Grid item sm={12} md={3}></Grid>
-                </Grid>
-            </div>
-        </Box>
+                </div>
+            </Box>
+        </>
     );
 }

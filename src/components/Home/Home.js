@@ -1,20 +1,15 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import Navigation from '../Shared/Navigation/Navigation';
 import useAuth from '../../hooks/useAuth';
 
 const Home = () => {
-    const { logout, user } = useAuth();
-    const history = useHistory();
-    const handleLogOut = (e) => {
-        e.preventDefault();
-        logout();
-        history.push('/');
-    }
+    const { loggedInUserFromDB } = useAuth();
 
     return (
         <div>
-            <h1>Welcome Home {user?.displayName}</h1>
-            <button onClick={handleLogOut} >Log out</button>
+            <Navigation />
+            <h1>Welcome Home {loggedInUserFromDB?.displayName}</h1>
+            <img src={loggedInUserFromDB?.profilePic} alt="" />
         </div>
     );
 };
