@@ -1,0 +1,48 @@
+.login-container {
+  font-family: sans-serif;
+  text-align: center;
+}
+.form-box {
+  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+  margin: auto;
+  padding: 3%;
+  border-radius: 10px;
+}
+.heading {
+  color: #04293a;
+  font-weight: 700;
+}
+.divider {
+  width: 70%;
+  height: 5px;
+  margin: 10px auto;
+  background-color: #c39052;
+  position: relative;
+}
+.divider::before {
+  position: absolute;
+  content: " ";
+  height: 10px;
+  width: 30%;
+  background-color: #04293a;
+  top: -50%;
+  right: 0;
+}
+.inputFields {
+  width: 95%;
+  margin: 2% auto;
+}
+.or-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.or-divider {
+  width: 33%;
+  height: 2px;
+  background-color: #ccc;
+}
+.continue-with-button {
+  margin: 10px 0;
+ 
+}
