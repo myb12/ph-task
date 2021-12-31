@@ -13,7 +13,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Button } from '@mui/material';
 const Navigation = () => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const { logout, user, loggedInUserFromDB } = useAuth();
+    const { logout, loggedInUserFromDB } = useAuth();
     const history = useHistory();
 
 
@@ -35,8 +35,8 @@ const Navigation = () => {
         setAnchorEl(null);
     }
 
-    const handleJoinUs = () => {
-        history.push('/join-us');
+    const handleNavigate = (location) => {
+        history.push(location);
     }
 
     return (
@@ -88,11 +88,11 @@ const Navigation = () => {
                                     <img src={loggedInUserFromDB?.profilePic} alt="" style={{ width: 24, height: 24, borderRadius: '50%', marginRight: 3 }} />
                                     {loggedInUserFromDB?.displayName}
                                 </MenuItem>
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={() => handleNavigate('profile')}>Profile</MenuItem>
                                 <MenuItem onClick={handleLogOut}>Log out</MenuItem>
                             </Menu>
                         </div>
-                    ) : <Button variant="text" sx={{ color: '#fff' }} onClick={handleJoinUs}>Please Join Us</Button>}
+                    ) : <Button variant="text" sx={{ color: '#fff' }} onClick={() => handleNavigate('join-us')}>Please Join Us</Button>}
                 </Toolbar>
             </AppBar>
         </Box >

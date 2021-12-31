@@ -1,6 +1,6 @@
 import initializeFirebase from "../Firebase/firebase.init";
 import { useState, useEffect } from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, getIdToken } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import axios from "axios";
 
 
@@ -17,7 +17,7 @@ const useFirebase = () => {
 
     const auth = getAuth();
 
-    const registerUser = (email, password, name, history, userData) => {
+    const registerUser = (email, password, name, history, userData, userType) => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -26,14 +26,15 @@ const useFirebase = () => {
                 const newUser = { email, displayName: name };
                 setUser(newUser);
                 //save user to db
-                saveUser(email, name, userData, 'POST');
+                saveUser(email, name, userData, userType, 'POST');
                 // send name to firebase after creation
                 updateProfile(auth.currentUser, {
                     displayName: name
                 }).then(() => {
                 }).catch((error) => {
                 });
-                history.replace('/');
+                history.replace('/profile');
+                window.location.reload();
             })
             .catch((error) => {
                 setAuthError(error.message);
@@ -45,7 +46,7 @@ const useFirebase = () => {
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const destination = location?.state?.from || '/';
+                const destination = location?.state?.from || '/profile';
                 history.replace(destination);
                 setAuthError('');
             })
@@ -61,10 +62,6 @@ const useFirebase = () => {
         const unsubscribed = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
-                getIdToken(user)
-                    .then(idToken => {
-                        sessionStorage.setItem('jwt', idToken);
-                    })
             } else {
                 setUser({})
             }
@@ -83,9 +80,10 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false));
     }
 
-    const saveUser = (email, displayName, userData, method) => {
+    const saveUser = (email, displayName, userData, userType, method) => {
         userData.email = email;
         userData.displayName = displayName;
+        userData.userType = userType;
 
         fetch('http://localhost:5000/users', {
             method: method,

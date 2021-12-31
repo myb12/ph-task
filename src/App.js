@@ -4,6 +4,8 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import AuthProvider from './context/AuthProvider';
 import JoinUs from './components/JoinUs/JoinUs';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Profile from './components/Profile/Profile';
 
 function App() {
   return (
@@ -26,7 +28,9 @@ function App() {
             <JoinUs />
           </Route>
 
-          
+          <PrivateRoute to="/profile">
+            <Profile />
+          </PrivateRoute>
         </Switch>
       </Router>
     </AuthProvider>

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Navigation from "../Shared/Navigation/Navigation";
 import AsRider from "./AsRider/AsRider";
 import axios from "axios";
+import AsLearner from "./AsLearner/Aslearner";
 
 
 export default function JoinUs() {
@@ -20,7 +21,7 @@ export default function JoinUs() {
     const history = useHistory();
     const [userType, setUserType] = useState('Rider');
     const [userData, setUserData] = useState({});
-
+    const [message, setMessage] = useState('');
 
 
     const handleOnBlur = e => {
@@ -33,7 +34,13 @@ export default function JoinUs() {
 
     const handleSignUp = (e) => {
         e.preventDefault();
-        registerUser(userData.email, userData.password, userData.name, history, userData);
+        if (userData.password === userData.confirmPassword) {
+            registerUser(userData.email, userData.password, userData.displayName, history, userData, userType);
+            setMessage('');
+        } else {
+            setMessage('Password did not match!');
+        }
+
     }
 
     const handleType = (type) => {
@@ -43,7 +50,6 @@ export default function JoinUs() {
     const handleImageUpload = e => {
         const field = e.target.name;
         const newUserData = { ...userData };
-
 
         const imageData = new FormData();
         imageData.set('key', 'e41d40fb3f55feb7953d2b40ad1591f1');
@@ -59,7 +65,7 @@ export default function JoinUs() {
                 console.log(err);
             });
     }
-    console.log(userData);
+
     return (
         <>
             <Navigation />
@@ -97,19 +103,26 @@ export default function JoinUs() {
                                 />
                             }
 
+                            {/* to join as a Driving Lesson Learner */}
+                            {
+                                userType === 'Learner' && <AsLearner
+                                    handleOnBlur={handleOnBlur}
+                                    handleSignUp={handleSignUp}
+                                    handleImageUpload={handleImageUpload}
+                                />
+                            }
+
 
                             {/* to join as a Driving Lesson Learner*/}
 
                             <Typography variant="body1" sx={{ mt: 2 }}>
                                 Already registered? <Link to="/login">Login</Link> here
                             </Typography>
-                            <Box className="or-section">
-                                <Box className="or-divider" />
-                                <Typography variant="h5">Or</Typography>
-                                <Box className="or-divider" />
-                            </Box>
                             {
                                 authError && <Alert severity="error" sx={{ mt: 2 }}>{authError}</Alert>
+                            }
+                            {
+                                message && <Alert severity="error" sx={{ mt: 2 }}>{message}</Alert>
                             }
                         </Grid>
                         <Grid item sm={12} md={3}></Grid>

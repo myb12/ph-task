@@ -9,14 +9,14 @@
   border-radius: 10px;
 }
 .heading {
-  color: #04293a;
+  color: #1976d2;
   font-weight: 700;
 }
 .divider {
   width: 70%;
   height: 5px;
   margin: 10px auto;
-  background-color: #c39052;
+  background-color: #1976d2;
   position: relative;
 }
 .divider::before {
@@ -24,9 +24,9 @@
   content: " ";
   height: 10px;
   width: 30%;
-  background-color: #04293a;
+  background-color: #f6830d;
   top: -50%;
-  right: 0;
+  left: 35%
 }
 .inputFields {
   width: 95%;

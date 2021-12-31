@@ -14,8 +14,7 @@ import "../../Login/Login.css";
 import { MdEmail } from "react-icons/md";
 import { FaLock, FaUserAlt } from "react-icons/fa";
 
-const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
-
+const AsLearner = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
     const [vehicle, setVehicle] = useState('');
 
     const handleChange = (event) => {
@@ -123,13 +122,13 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
             />
 
             <Box className="inputFields" sx={{ textAlign: 'left', color: '#666666' }}>
-                <label htmlFor="file">Driving Licence Picture*</label>
+                <label htmlFor="file">Profile Picture*</label>
             </Box>
             <TextField
                 required
                 type="file"
                 className="inputFields"
-                name="licence"
+                name="profilePic"
                 variant="standard"
                 InputProps={{
                     // <-- This is where the toggle button is added.
@@ -141,25 +140,6 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                 }}
                 sx={{ mt: 0 }}
                 onChange={handleImageUpload}
-            />
-
-            <TextField
-                required
-                type="text"
-                className="inputFields"
-                label="Area"
-                name="area"
-                variant="standard"
-                InputProps={{
-                    // <-- This is where the toggle button is added.
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <FaUserAlt />
-                        </InputAdornment>
-                    )
-                }}
-                sx={{ mt: 2 }}
-                onBlur={handleOnBlur}
             />
 
             <Box className="inputFields" sx={{ textAlign: 'left', color: '#666666' }}>
@@ -170,27 +150,6 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                 type="file"
                 className="inputFields"
                 name="nid"
-                variant="standard"
-                InputProps={{
-                    // <-- This is where the toggle button is added.
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <FaUserAlt />
-                        </InputAdornment>
-                    )
-                }}
-                sx={{ mt: 0 }}
-                onChange={handleImageUpload}
-            />
-
-            <Box className="inputFields" sx={{ textAlign: 'left', color: '#666666' }}>
-                <label htmlFor="file">Profile Picture*</label>
-            </Box>
-            <TextField
-                required
-                type="file"
-                className="inputFields"
-                name="profilePic"
                 variant="standard"
                 InputProps={{
                     // <-- This is where the toggle button is added.
@@ -224,62 +183,6 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                 </Select>
             </FormControl>
 
-            <TextField
-                required
-                type="text"
-                className="inputFields"
-                label="Vehicle Name"
-                name="vehicleName"
-                variant="standard"
-                InputProps={{
-                    // <-- This is where the toggle button is added.
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <FaUserAlt />
-                        </InputAdornment>
-                    )
-                }}
-                sx={{ mt: 2 }}
-                onBlur={handleOnBlur}
-            />
-
-            <TextField
-                required
-                type="text"
-                className="inputFields"
-                label="Vehicle Model"
-                name="vehicleModel"
-                variant="standard"
-                InputProps={{
-                    // <-- This is where the toggle button is added.
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <FaUserAlt />
-                        </InputAdornment>
-                    )
-                }}
-                sx={{ mt: 2 }}
-                onBlur={handleOnBlur}
-            />
-
-            <TextField
-                required
-                type="text"
-                className="inputFields"
-                label="Name Palate"
-                name="namePalate"
-                variant="standard"
-                InputProps={{
-                    // <-- This is where the toggle button is added.
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <FaUserAlt />
-                        </InputAdornment>
-                    )
-                }}
-                sx={{ mt: 2 }}
-                onBlur={handleOnBlur}
-            />
 
             <TextField
                 required
@@ -325,4 +228,4 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
     );
 };
 
-export default AsRider;
+export default AsLearner;
