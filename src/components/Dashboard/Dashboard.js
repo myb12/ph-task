@@ -9,17 +9,20 @@ import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Avatar, Button, Card, CardContent, Container, Grid } from '@mui/material';
-import { Switch, Route, Link, useRouteMatch, useHistory, useLocation } from "react-router-dom";
-import { MdDashboardCustomize, MdManageAccounts, MdPayment, } from 'react-icons/md';
-import { useEffect, useState } from 'react';
+import { Button, Card, CardContent, Container, Grid } from '@mui/material';
+import { Switch, Route, Link, useRouteMatch, useHistory, useLocation, NavLink } from "react-router-dom";
+import { MdDashboardCustomize, MdPayment, } from 'react-icons/md';
+import { useState } from 'react';
 import { BsMinecartLoaded } from 'react-icons/bs';
-import { AiFillSetting, AiOutlineRollback } from 'react-icons/ai';
-import { GoDiffAdded, GoWatch } from 'react-icons/go';
+import { AiOutlineRollback } from 'react-icons/ai';
+import { GoWatch } from 'react-icons/go';
 import useAuth from '../../hooks/useAuth';
 import AdminRoute from './Admin/AdminRoute/AdminRoute';
 import './Dashboard.css';
 import ManageAllUsers from './Admin/ManageAllUsers/ManageAllUsers';
+import PricingCard from './User/PricingCard';
+import plans from '../../assets/data/plans.json';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const drawerWidth = 280;
 
@@ -29,24 +32,11 @@ function Dashboard(props) {
     const history = useHistory();
     const location = useLocation();
     const [mobileOpen, setMobileOpen] = useState(false);
-    // const [totalOrders, setTotalOrders] = useState([]);
-    // const [totalProducts, setTotalProducts] = useState([]);
+    const isTab = useMediaQuery('(max-width:990px)');
 
     let { path, url } = useRouteMatch();
     const dashboardPageUrl = location.pathname.split('/dashboard/')[1];
     const notDashboardUrl = location.pathname.split('/')[2];
-
-    // useEffect(() => {
-    //     fetch('https://secret-anchorage-33116.herokuapp.com/products')
-    //         .then(res => res.json())
-    //         .then(data => setTotalProducts(data))
-    // }, [])
-
-    // useEffect(() => {
-    //     fetch('https://secret-anchorage-33116.herokuapp.com/orders')
-    //         .then(res => res.json())
-    //         .then(data => setTotalOrders(data))
-    // }, [])
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -56,10 +46,6 @@ function Dashboard(props) {
     const handleLogOut = (e) => {
         e.preventDefault();
         logout();
-        history.push('/');
-    }
-
-    const handleLogoClick = () => {
         history.push('/');
     }
 
@@ -152,6 +138,9 @@ function Dashboard(props) {
                     >
                         <MenuIcon />
                     </IconButton>
+                    <NavLink to="/dashboard" style={{ textDecoration: 'none', color: '#fff' }} activeStyle={{ borderBottom: '2px solid #fff' }}>
+                        Dashboard
+                    </NavLink>
 
                     <a href="/" onClick={handleLogOut} className="dashboard-nav-item">Log out</a>
                 </Toolbar>
@@ -211,7 +200,7 @@ function Dashboard(props) {
 
 
                 {
-                    !notDashboardUrl && <>
+                    admin && !notDashboardUrl && <>
                         <Box style={{ display: 'flex', justifyContent: 'center' }}>
                             <Box>
                                 <Typography variant="h5">Hello <span style={{ fontWeight: 700, color: '#f6830d' }}>{user.displayName}!</span></Typography>
@@ -255,6 +244,22 @@ function Dashboard(props) {
                         </Container>
                     </>
                 }
+
+                {
+                    !admin && !notDashboardUrl && <>
+                        <Typography variant="h4" className="heading">
+                            Our Plans
+                        </Typography>
+                        <Box sx={{ mt: 2, display: 'flex', flexDirection: isTab && 'column' }}>
+                            {
+                                plans.map(plan => <PricingCard key={plan.id} plan={plan} />)
+                            }
+
+                        </Box>
+                    </>
+                }
+
+
 
             </Box>
         </Box>

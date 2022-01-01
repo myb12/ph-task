@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,11 +9,17 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import useAuth from '../../../hooks/useAuth';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { Button } from '@mui/material';
+
+
+const activeStyle = {
+    borderBottom: '2px solid #fff',
+}
+
 const Navigation = () => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const { logout, loggedInUserFromDB } = useAuth();
+    const { user, logout, loggedInUserFromDB } = useAuth();
     const history = useHistory();
 
 
@@ -44,19 +50,16 @@ const Navigation = () => {
         <Box sx={{ flexGrow: 1, }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} >
-                        <Link to="/" style={{ textDecoration: 'none', color: '#fff' }}>
-                            Hero Rider
-                        </Link>
+                        <NavLink to="/" style={{ textDecoration: 'none', color: '#fff', marginRight: 16 }} activeStyle={activeStyle}>
+                            Home
+                        </NavLink>
+
+                        {
+                            user.email && <NavLink to="/dashboard" style={{ textDecoration: 'none', color: '#fff' }} activeStyle={activeStyle}>
+                                Dashboard
+                            </NavLink>
+                        }
                     </Typography>
                     {loggedInUserFromDB?.email ? (
                         <div>
