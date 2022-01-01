@@ -15,6 +15,7 @@ import useAuth from '../../../../hooks/useAuth';
 import { BiSearchAlt } from 'react-icons/bi';
 import { IoMdArrowDropright, IoMdArrowDropleft } from 'react-icons/io';
 import axios from "axios";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 
@@ -51,6 +52,8 @@ const ManageAllUsers = () => {
     const [ageRange, setAgeRange] = useState('');
     const [message, setMessagge] = useState('');
     const [blocked, setBlocked] = useState(false);
+    const [selectedUsers, setSelectedUsers] = useState([]);
+    const isMobile = useMediaQuery('(max-width:599px)');
 
     const [page, setPage] = useState(0);
     const size = 10;
@@ -82,13 +85,48 @@ const ManageAllUsers = () => {
         setFilteredUser(paginatedUsers);
     }, [paginatedUsers, page])
 
-    const handleChecked = (e) => {
-        console.log(e.target.checked);
-    }
     const handleFilter = (e) => {
         setSearchText(e.target.value);
     }
 
+    // handler for multiple user selecion 
+    const handleChecked = (id) => (e) => {
+        if (e.target.checked) {
+            const selected = filteredUser.filter(user => user._id === id);
+            const newArr = [...selectedUsers];
+            newArr.push(...selected);
+            setSelectedUsers(newArr);
+
+        } else {
+            const selected = selectedUsers.filter(user => user._id !== id);
+            setSelectedUsers(selected);
+        }
+    }
+    console.log(selectedUsers);
+
+    // Handler for multiple user deletion 
+    const handleMultipleDelete = () => {
+        const ids = selectedUsers.map(each => each._id);
+        if (window.confirm('Do you really want to delete the user?')) {
+            ids.forEach(id => {
+
+                fetch(`http://localhost:5000/users/${id}`, {
+                    method: 'DELETE',
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            setBlocked(!blocked);
+                        }
+                    });
+            }
+            )
+        }
+
+    }
+    // Handler for single user deletion 
+    const handleDelete = () => { }
+    // age range handler 
     const handleAgeRange = (event) => {
 
         setAgeRange(event.target.value);
@@ -113,7 +151,6 @@ const ManageAllUsers = () => {
     };
 
     // Pagination handlers 
-
     const handleNext = () => {
         if (page === numOfPage) return;
         setPage(page + 1);
@@ -157,7 +194,7 @@ const ManageAllUsers = () => {
                     onChange={handleFilter}
                 />
             </Box>
-            <FormControl sx={{ my: 2, width: 300 }}>
+            <FormControl sx={{ mt: 2, width: 300 }}>
                 <InputLabel id="demo-simple-select-standard-label">Filter by age</InputLabel>
                 <Select
                     labelId="demo-simple-select-standard-label"
@@ -178,6 +215,11 @@ const ManageAllUsers = () => {
                     <MenuItem value={'41-50'}>41-50</MenuItem>
                 </Select>
             </FormControl>
+            <Box sx={{ display: 'flex', justifyContent: isMobile ? 'start' : 'end', my: 1 }}>
+                <Button variant="outlined" onClick={handleMultipleDelete}>
+                    Delete multiple users
+                </Button>
+            </Box>
             <TableContainer component={Paper} sx={{ maxWidth: '85vw' }}>
                 <Table aria-label="customized table">
                     <TableHead>
@@ -197,7 +239,7 @@ const ManageAllUsers = () => {
                         {
                             filteredUser?.map(user => <StyledTableRow key={user._id}>
                                 <StyledTableCell component="th" scope="row">
-                                    <Checkbox {...label} onChange={handleChecked} />
+                                    <Checkbox {...label} onChange={handleChecked(user._id)} />
                                 </StyledTableCell>
                                 <StyledTableCell component="th" scope="row">
                                     {user.displayName}
@@ -228,7 +270,7 @@ const ManageAllUsers = () => {
                                                 user.userStatus ? user.userStatus : 'Block'
                                             }
                                         </Button>
-                                        <IconButton aria-label="delete">
+                                        <IconButton aria-label="delete" onClick={() => handleDelete(user._id)}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </Box>
