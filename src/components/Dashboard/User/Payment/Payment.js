@@ -2,7 +2,12 @@ import { Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import CheckOutForm from './CheckOutForm/CheckOutForm';
+import { Elements } from '@stripe/react-stripe-js';
 
+
+const stripePromise = loadStripe('pk_test_51KD5EaBrD3UISWrixTsiQsQthOeWq0DEsnKCWNV6QdUDbeXAu2wBRd3xk5hNwWC0f1UdMGhSw6DJ9XFsr5i1y3nK002ZfvYvcC');
 const Payment = () => {
     const { orderID } = useParams();
     const [order, setOrder] = useState({});
@@ -16,6 +21,13 @@ const Payment = () => {
             <Typography variant="h4" className="heading">
                 Please pay for {order.title}
             </Typography>
+            <Typography sx={{ fontWeight: 700 }}>
+                Pay: ${order.price}
+            </Typography>
+
+            <Elements stripe={stripePromise}>
+                <CheckOutForm order={order} />
+            </Elements>
         </div>
     );
 };
