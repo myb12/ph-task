@@ -23,6 +23,8 @@ import ManageAllUsers from './Admin/ManageAllUsers/ManageAllUsers';
 import PricingCard from './User/PricingCard';
 import plans from '../../assets/data/plans.json';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import MyOrders from './User/MyOrders/MyOrders';
+import Payment from './User/Payment/Payment';
 
 const drawerWidth = 280;
 
@@ -101,6 +103,17 @@ function Dashboard(props) {
                                 </Link>
                             </Button>
                         </List>
+                        <List style={{ padding: "0" }}>
+                            <Button color="inherit" style={{ width: "100%", justifyContent: "start", }}>
+                                <Link to={`${url}/myOrders`} className="dashboard-item" style={{ width: "100%", borderLeft: dashboardPageUrl === 'myOrders' && '2px solid #1976d2' }}>
+                                    <span className="dashboard-item-content">
+                                        <MdPayment style={{ marginRight: 10, }} />
+                                        My Orders
+                                    </span>
+                                </Link>
+                            </Button>
+                        </List>
+
                         <List style={{ padding: "0" }}>
                             <Button color="inherit" style={{ width: "100%", justifyContent: "start", }}>
                                 <Link to={`${url}/pay`} className="dashboard-item" style={{ width: "100%", borderLeft: dashboardPageUrl === 'pay' && '2px solid #1976d2' }}>
@@ -184,10 +197,11 @@ function Dashboard(props) {
                 <Toolbar />
                 <Switch>
                     {/* Routes for normal user */}
-                    <Route path={`${path}/pay`}>
-                        <Box>
-                            <h1>This is Pay </h1>
-                        </Box>
+                    <Route path={`${path}/pay/:orderID`}>
+                        <Payment />
+                    </Route>
+                    <Route path={`${path}/myOrders`}>
+                        <MyOrders />
                     </Route>
                     {/* <Route path={`${path}/user-dashboard`}>
 

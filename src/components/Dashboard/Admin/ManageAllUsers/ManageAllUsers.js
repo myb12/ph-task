@@ -139,7 +139,7 @@ const ManageAllUsers = () => {
                 });
         }
     }
-    
+
     // age range handler 
     const handleAgeRange = (event) => {
 
