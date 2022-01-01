@@ -18,10 +18,10 @@ const Payment = () => {
     }, [orderID])
     return (
         <div>
-            <Typography variant="h4" className="heading">
+            <Typography variant="h4" className="heading" sx={{ textAlign: 'center', mb: 2 }}>
                 Please pay for {order.title}
             </Typography>
-            <Typography sx={{ fontWeight: 700 }}>
+            <Typography sx={{ fontWeight: 700, textAlign: 'center', mb: 2 }}>
                 Pay: ${order.price}
             </Typography>
 

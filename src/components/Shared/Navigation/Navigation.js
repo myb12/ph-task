@@ -4,12 +4,11 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import useAuth from '../../../hooks/useAuth';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 

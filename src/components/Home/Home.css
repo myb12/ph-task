@@ -1,0 +1,10 @@
+.banner-container{
+    background-image: url(https://i.ibb.co/MgRLjCj/hero-rider.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    padding: 250px 0;
+}

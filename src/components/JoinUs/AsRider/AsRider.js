@@ -11,8 +11,10 @@ import {
     TextField,
 } from "@mui/material";
 import "../../Login/Login.css";
-import { MdEmail } from "react-icons/md";
-import { FaLock, FaUserAlt } from "react-icons/fa";
+import { MdEmail, MdLocationPin } from "react-icons/md";
+import { FaAddressCard, FaLock, FaUserAlt } from "react-icons/fa";
+import { BsImage } from 'react-icons/bs';
+import { AiFillCalendar, AiFillCar, AiFillPhone } from 'react-icons/ai';
 
 const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
 
@@ -75,7 +77,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <AiFillCalendar />
                         </InputAdornment>
                     )
                 }}
@@ -95,7 +97,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <FaAddressCard />
                         </InputAdornment>
                     )
                 }}
@@ -114,7 +116,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <AiFillPhone />
                         </InputAdornment>
                     )
                 }}
@@ -135,7 +137,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <BsImage />
                         </InputAdornment>
                     )
                 }}
@@ -154,7 +156,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <MdLocationPin />
                         </InputAdornment>
                     )
                 }}
@@ -175,7 +177,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <BsImage />
                         </InputAdornment>
                     )
                 }}
@@ -196,7 +198,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <BsImage />
                         </InputAdornment>
                     )
                 }}
@@ -235,7 +237,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <AiFillCar />
                         </InputAdornment>
                     )
                 }}
@@ -254,7 +256,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <AiFillCar />
                         </InputAdornment>
                     )
                 }}
@@ -273,7 +275,7 @@ const AsRider = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <AiFillCar />
                         </InputAdornment>
                     )
                 }}

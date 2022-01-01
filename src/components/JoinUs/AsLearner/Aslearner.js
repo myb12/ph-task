@@ -12,7 +12,9 @@ import {
 } from "@mui/material";
 import "../../Login/Login.css";
 import { MdEmail } from "react-icons/md";
-import { FaLock, FaUserAlt } from "react-icons/fa";
+import { FaAddressCard, FaLock, FaUserAlt } from "react-icons/fa";
+import { AiFillCalendar, AiFillPhone } from 'react-icons/ai';
+import { BsImage } from 'react-icons/bs';
 
 const AsLearner = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
     const [vehicle, setVehicle] = useState('');
@@ -74,7 +76,7 @@ const AsLearner = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <AiFillCalendar />
                         </InputAdornment>
                     )
                 }}
@@ -94,7 +96,7 @@ const AsLearner = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <FaAddressCard />
                         </InputAdornment>
                     )
                 }}
@@ -113,7 +115,7 @@ const AsLearner = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <AiFillPhone />
                         </InputAdornment>
                     )
                 }}
@@ -134,7 +136,7 @@ const AsLearner = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <BsImage />
                         </InputAdornment>
                     )
                 }}
@@ -155,7 +157,7 @@ const AsLearner = ({ handleOnBlur, handleSignUp, handleImageUpload }) => {
                     // <-- This is where the toggle button is added.
                     endAdornment: (
                         <InputAdornment position="end">
-                            <FaUserAlt />
+                            <BsImage />
                         </InputAdornment>
                     )
                 }}

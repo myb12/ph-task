@@ -15,7 +15,7 @@ import { MdDashboardCustomize, MdPayment, } from 'react-icons/md';
 import { useState } from 'react';
 import { BsMinecartLoaded } from 'react-icons/bs';
 import { AiOutlineCloseCircle, AiOutlineRollback } from 'react-icons/ai';
-import { GoWatch } from 'react-icons/go';
+import { FaUserAlt } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 import AdminRoute from './Admin/AdminRoute/AdminRoute';
 import './Dashboard.css';
@@ -29,7 +29,7 @@ import Payment from './User/Payment/Payment';
 const drawerWidth = 280;
 
 function Dashboard(props) {
-    const { logout, admin, user } = useAuth()
+    const { logout, admin, user, allUsers } = useAuth()
     const { window } = props;
     const history = useHistory();
     const location = useLocation();
@@ -109,17 +109,6 @@ function Dashboard(props) {
                                     <span className="dashboard-item-content">
                                         <MdPayment style={{ marginRight: 10, }} />
                                         My Orders
-                                    </span>
-                                </Link>
-                            </Button>
-                        </List>
-
-                        <List style={{ padding: "0" }}>
-                            <Button color="inherit" style={{ width: "100%", justifyContent: "start", }}>
-                                <Link to={`${url}/pay`} className="dashboard-item" style={{ width: "100%", borderLeft: dashboardPageUrl === 'pay' && '2px solid #1976d2' }}>
-                                    <span className="dashboard-item-content">
-                                        <MdPayment style={{ marginRight: 10, }} />
-                                        Pay
                                     </span>
                                 </Link>
                             </Button>
@@ -223,38 +212,21 @@ function Dashboard(props) {
                             </Box>
                         </Box>
 
-                        <Container maxWidth="md" sx={{ mt: 6 }} className="dashboard-content">
-                            <Grid container spacing={2}>
+                        <Container maxWidth="md" sx={{ mt: 6, }} className="dashboard-content">
+                            <Grid container spacing={2} sx={{ mt: 6, justifyContent: 'center' }}>
                                 <Grid item md={6} xs={12}>
                                     <Card variant="outlined" style={{ height: 250 }}>
                                         <CardContent>
                                             <Typography style={{ fontSize: 45, fontWeight: 700 }} component="div">
-                                                10
+                                                Total Users
                                             </Typography>
-                                            <Typography variant="h6" sx={{ mb: 1.5 }} >
-                                                Card 1
+                                            <Typography variant="h3" sx={{ mb: 1.5, textAlign: 'center' }} >
+                                                {allUsers.length}
                                             </Typography>
-
                                         </CardContent>
-                                        <GoWatch style={{ fontSize: 100, color: '#00000026' }} />
+                                        <FaUserAlt style={{ fontSize: 100, color: '#00000026' }} />
                                     </Card>
                                 </Grid>
-
-                                <Grid item md={6} xs={12}>
-                                    <Card variant="outlined" style={{ height: 250 }}>
-                                        <CardContent>
-                                            <Typography style={{ fontSize: 45, fontWeight: 700 }} component="div">
-                                                20
-                                            </Typography>
-                                            <Typography variant="h6" sx={{ mb: 1.5 }}>
-                                                Card 2
-                                            </Typography>
-
-                                        </CardContent>
-                                        <BsMinecartLoaded style={{ fontSize: 100, color: '#00000026' }} />
-                                    </Card>
-                                </Grid>
-
                             </Grid>
                         </Container>
                     </>
@@ -278,7 +250,6 @@ function Dashboard(props) {
                             {
                                 plans.map((plan, i) => <PricingCard key={i} plan={plan} setMessage={setMessage} />)
                             }
-
                         </Box>
 
                     </>

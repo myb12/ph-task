@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { Alert, CircularProgress } from '@mui/material';
+import { Alert, Button, CircularProgress } from '@mui/material';
 import useAuth from '../../../../../hooks/useAuth';
+import './CheckOutForm.css';
 
 const CheckOutForm = ({ order }) => {
     const { price, _id } = order;
@@ -97,7 +98,7 @@ const CheckOutForm = ({ order }) => {
     }
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="checkout-form">
                 <CardElement
                     options={{
                         style: {
@@ -114,9 +115,9 @@ const CheckOutForm = ({ order }) => {
                         },
                     }}
                 />
-                {processing ? <CircularProgress></CircularProgress> : <button type="submit" disabled={!stripe || success}>
+                {processing ? <CircularProgress></CircularProgress> : <Button sx={{ mt: 2 }} variant="contained" type="submit" disabled={!stripe || success}>
                     Pay ${price}
-                </button>}
+                </Button>}
             </form>
             {
                 error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>

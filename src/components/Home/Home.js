@@ -1,13 +1,36 @@
 import React from 'react';
 import Navigation from '../Shared/Navigation/Navigation';
+import { Button, Container, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { useHistory } from 'react-router';
+import './Home.css'
 
 const Home = () => {
+    const history = useHistory();
+    const handleClick = () => {
+        history.push('/join-us');
+    }
 
     return (
-        <div>
+        <>
             <Navigation />
-            <h1>This is Home</h1>
-        </div>
+            <Box className="banner-container" style={{ backgroundColor: 'cyan' }}>
+                <Container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Typography variant="h3" sx={{ color: '#f6830d', fontWeight: 'bold' }}>
+                        Hero Rider!
+                    </Typography>
+
+                    <Typography sx={{ color: '#f6830d', fontSize: 20, fontWeight: 300, marginTop: 2, textAlign: 'center' }}>
+                        FOCUSED ON SAFETY, WHEREVER YOU GO! <br />
+                        WE CONNECT DRIVERS & PASSENGERS
+                    </Typography>
+
+                    <Button style={{ marginTop: 10, width: '30%', backgroundColor: '#f6830d', color: '#fff' }} onClick={handleClick}>
+                        Join Us
+                    </Button>
+                </Container>
+            </Box>
+        </>
     );
 };
 
