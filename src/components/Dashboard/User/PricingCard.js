@@ -1,9 +1,11 @@
+import { useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import './PricingCard.css';
 import PurchaseModal from './PurchaseModal/PurchaseModal';
 
 const PricingCard = ({ plan, setMessage }) => {
     const [open, setOpen] = useState(false);
+    const isTab = useMediaQuery('(max-width:990px)');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -15,7 +17,7 @@ const PricingCard = ({ plan, setMessage }) => {
     return (
         <>
             <PurchaseModal open={open} handleClose={handleClose} plan={plan} setMessage={setMessage} />
-            <div className="card">
+            <div className="card" style={{ marginRight: !isTab && 20 }}>
                 <div className="card-pricing">
                     <div className="price">
                         <div><span className="symbol">$</span>{plan.price}</div>

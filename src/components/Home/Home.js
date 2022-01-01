@@ -10,7 +10,6 @@ const Home = () => {
     const handleClick = () => {
         history.push('/join-us');
     }
-
     return (
         <>
             <Navigation />
@@ -25,7 +24,7 @@ const Home = () => {
                         WE CONNECT DRIVERS & PASSENGERS
                     </Typography>
 
-                    <Button style={{ marginTop: 10, width: '30%', backgroundColor: '#f6830d', color: '#fff' }} onClick={handleClick}>
+                    <Button onClick={handleClick} className="join-btn">
                         Join Us
                     </Button>
                 </Container>

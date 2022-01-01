@@ -234,7 +234,7 @@ function Dashboard(props) {
 
                 {
                     !admin && !notDashboardUrl && <>
-                        <Typography variant="h4" className="heading">
+                        <Typography variant="h4" className="heading" sx={{ textAlign: 'center' }}>
                             Our Plans
                         </Typography>
                         {
@@ -246,7 +246,7 @@ function Dashboard(props) {
                             </Alert>
                         }
 
-                        <Box sx={{ mt: 2, display: 'flex', flexDirection: isTab && 'column' }}>
+                        <Box sx={{ mt: 2, display: 'flex', justifyContent: !isTab && 'center', flexDirection: isTab && 'column', alignItems: isTab && 'center' }}>
                             {
                                 plans.map((plan, i) => <PricingCard key={i} plan={plan} setMessage={setMessage} />)
                             }
@@ -258,7 +258,7 @@ function Dashboard(props) {
 
 
             </Box>
-        </Box>
+        </Box >
     );
 }
 

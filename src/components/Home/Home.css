@@ -8,3 +8,30 @@
     z-index: 1;
     padding: 250px 0;
 }
+
+.banner-container::before {
+    background-color: #000;
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: 0.2;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.join-btn{
+  margin-top: 10px;
+  width: 30%;
+  background-color: #f6830d !important;
+  border: 2px solid #f6830d !important;
+  color: #fff !important;
+  transition: all 0.3s linear;
+}
+
+.join-btn:hover{
+  background-color: #1976d2 !important;
+  border: 2px solid #1976d2 !important;
+  color: #f6830d !important;
+}
