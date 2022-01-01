@@ -9,12 +9,12 @@ import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Button, Card, CardContent, Container, Grid } from '@mui/material';
+import { Alert, Button, Card, CardContent, Container, Grid } from '@mui/material';
 import { Switch, Route, Link, useRouteMatch, useHistory, useLocation, NavLink } from "react-router-dom";
 import { MdDashboardCustomize, MdPayment, } from 'react-icons/md';
 import { useState } from 'react';
 import { BsMinecartLoaded } from 'react-icons/bs';
-import { AiOutlineRollback } from 'react-icons/ai';
+import { AiOutlineCloseCircle, AiOutlineRollback } from 'react-icons/ai';
 import { GoWatch } from 'react-icons/go';
 import useAuth from '../../hooks/useAuth';
 import AdminRoute from './Admin/AdminRoute/AdminRoute';
@@ -33,6 +33,7 @@ function Dashboard(props) {
     const location = useLocation();
     const [mobileOpen, setMobileOpen] = useState(false);
     const isTab = useMediaQuery('(max-width:990px)');
+    const [message, setMessage] = useState('');
 
     let { path, url } = useRouteMatch();
     const dashboardPageUrl = location.pathname.split('/dashboard/')[1];
@@ -250,12 +251,22 @@ function Dashboard(props) {
                         <Typography variant="h4" className="heading">
                             Our Plans
                         </Typography>
+                        {
+                            message && <Alert severity="success" sx={{ mt: 2, cursor: 'pointer' }} onClick={() => setMessage('')}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', }}>
+                                    {message}
+                                    <AiOutlineCloseCircle style={{ marginLeft: 5, color: '#bdbdbd', fontSize: 18 }} />
+                                </Box>
+                            </Alert>
+                        }
+
                         <Box sx={{ mt: 2, display: 'flex', flexDirection: isTab && 'column' }}>
                             {
-                                plans.map(plan => <PricingCard key={plan.id} plan={plan} />)
+                                plans.map((plan, i) => <PricingCard key={i} plan={plan} setMessage={setMessage} />)
                             }
 
                         </Box>
+
                     </>
                 }
 
