@@ -50,6 +50,8 @@ const ManageAllUsers = () => {
     const [searchText, setSearchText] = useState('');
     const [ageRange, setAgeRange] = useState('');
     const [message, setMessagge] = useState('');
+    const [blocked, setBlocked] = useState(false);
+
     const [page, setPage] = useState(0);
     const size = 10;
     const numOfPage = Math.ceil(allUsers.length / size);
@@ -62,7 +64,7 @@ const ManageAllUsers = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, [page]);
+    }, [page, blocked]);
 
 
     useEffect(() => {
@@ -121,7 +123,20 @@ const ManageAllUsers = () => {
         if (page === 0) return;
         setPage(page - 1);
     }
-    console.log(numOfPage);
+
+    // Handler for blocking users 
+    const handleBlock = (id) => {
+
+        axios.put(`http://localhost:5000/users/${id}`)
+            .then(res => {
+                if (res.data.matchedCount > 0) {
+                    setBlocked(!blocked);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 
     return (
         <>
@@ -204,7 +219,15 @@ const ManageAllUsers = () => {
                                 </StyledTableCell>
                                 <StyledTableCell align="left">
                                     <Box style={{ display: 'flex' }}>
-                                        <Button sx={{ mr: 1, fontSize: 12 }}>Block</Button>
+                                        <Button
+                                            sx={{ mr: 1, fontSize: 12 }}
+                                            onClick={() => handleBlock(user._id)}
+                                            disabled={!!user.userStatus}
+                                        >
+                                            {
+                                                user.userStatus ? user.userStatus : 'Block'
+                                            }
+                                        </Button>
                                         <IconButton aria-label="delete">
                                             <DeleteIcon />
                                         </IconButton>

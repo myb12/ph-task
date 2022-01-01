@@ -1,0 +1,103 @@
+[
+    {
+        "_id": {
+            "$oid": "61cf50b528e6fe3d567ce3ec"
+        },
+        "displayName": "Mohammad Yasin",
+        "age": "28",
+        "address": "Farmgate, Dhaka",
+        "phone": "01674687835",
+        "licence": "https://i.ibb.co/W59NwcD/email.png",
+        "area": "Farmgate",
+        "nid": "https://i.ibb.co/R3Z4qgn/github-1.png",
+        "profilePic": "https://i.ibb.co/jJfLcKH/og-image.png",
+        "vehicleType": "Bike",
+        "vehicleName": "Primio",
+        "vehicleModel": "2020",
+        "namePalate": "Dhaka dha-157465",
+        "password": "123456",
+        "confirmPassword": "123456",
+        "email": "yasin@gmail.com",
+        "userType": "Rider"
+    },
+    {
+        "_id": {
+            "$oid": "61cf656bab2e0c38aba0c8bb"
+        },
+        "email": "bappy@mailinator.com",
+        "age": "9",
+        "address": "Optio sequi dolorem",
+        "phone": "+1 (699) 513-1195",
+        "area": "Dolorem itaque volup",
+        "vehicleType": "Bike",
+        "vehicleName": "Quynn Knight",
+        "vehicleModel": "Voluptas esse dicta ",
+        "namePalate": "Cathleen Pugh",
+        "password": "123456",
+        "confirmPassword": "123456",
+        "profilePic": "https://i.ibb.co/sJks1v6/166086206-4584124968270488-4844574102453583512-n.jpg",
+        "nid": "https://i.ibb.co/Pgy7CVH/phone-call.png",
+        "licence": "https://i.ibb.co/b3gptqz/tool.png",
+        "userType": "Rider",
+        "displayName": "Bappy"
+    },
+    {
+        "_id": {
+            "$oid": "61cf6b0aab2e0c38aba0c8bd"
+        },
+        "displayName": "Curran Mccoy",
+        "email": "curran@mailinator.com",
+        "age": "37",
+        "address": "Reprehenderit deser",
+        "phone": "+1 (322) 332-8196",
+        "area": "Quas ullamco consequ",
+        "vehicleType": "Car",
+        "vehicleName": "Montana Wade",
+        "vehicleModel": "Iste veniam quo fug",
+        "namePalate": "Hasad Knowles",
+        "password": "123456",
+        "confirmPassword": "123456",
+        "profilePic": "https://i.ibb.co/R3Z4qgn/github-1.png",
+        "nid": "https://i.ibb.co/W59NwcD/email.png",
+        "licence": "https://i.ibb.co/fMwTPzs/global.png",
+        "userType": "Rider"
+    },
+    {
+        "_id": {
+            "$oid": "61cf6f1fab2e0c38aba0c8be"
+        },
+        "displayName": "Asif Ul Islam",
+        "email": "asif@gmail.com",
+        "age": "22",
+        "address": "Mirpur, Dhaka",
+        "phone": "01654568798",
+        "password": "123456",
+        "confirmPassword": "123456",
+        "profilePic": "https://i.ibb.co/yh2knqV/sports.jpg",
+        "nid": "https://i.ibb.co/cFDb2yV/sports-png-vector-royalty-free-stock-sports-png-420-420.png",
+        "userType": "Learner",
+        "vehicleType": "Car"
+    },
+    {
+        "_id": {
+            "$oid": "61cf736112a3b5249e570394"
+        },
+        "displayName": "Jhankar Mahbub",
+        "email": "admin@admin.com",
+        "age": "36",
+        "address": "Banani, Dhaka",
+        "phone": "01645879545",
+        "licence": "https://i.ibb.co/4Tc64w0/email.png",
+        "area": "Banani",
+        "nid": "https://i.ibb.co/5jsQDmv/stamp.png",
+        "profilePic": "https://i.ibb.co/WkF7Lzc/jhankar-bhai.jpg",
+        "vehicleType": "Car",
+        "vehicleName": "Troy Mclaughlin",
+        "vehicleModel": "2018",
+        "namePalate": "Dhaka metro ka-202545",
+        "password": "abcd1234",
+        "confirmPassword": "abcd1234",
+        "userType": "Rider",
+        "role": "admin"
+    }
+]
