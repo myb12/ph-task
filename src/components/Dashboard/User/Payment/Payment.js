@@ -13,7 +13,7 @@ const Payment = () => {
     const [order, setOrder] = useState({});
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/orders/${orderID}`)
+        axios.get(`https://glacial-beyond-92478.herokuapp.com/orders/${orderID}`)
             .then(res => setOrder(res.data))
     }, [orderID])
     return (

@@ -15,7 +15,7 @@ const CheckOutForm = ({ order }) => {
     const { user } = useAuth();
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://glacial-beyond-92478.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -83,7 +83,7 @@ const CheckOutForm = ({ order }) => {
                 transaction: paymentIntent.client_secret.slice('_secret')[0]
             }
 
-            const url = `http://localhost:5000/orders/${_id}`;
+            const url = `https://glacial-beyond-92478.herokuapp.com/orders/${_id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {

@@ -16,7 +16,7 @@ export default function PurchaseModal({ handleClose, open, plan, setMessage }) {
         const orderData = { ...plan };
         orderData.orderBy = user.email;
         handleClose();
-        axios.post('http://localhost:5000/orders',
+        axios.post('https://glacial-beyond-92478.herokuapp.com/orders',
             orderData)
             .then(res => {
                 if (res.data.insertedId) {

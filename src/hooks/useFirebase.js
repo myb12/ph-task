@@ -85,7 +85,7 @@ const useFirebase = () => {
         userData.displayName = displayName;
         userData.userType = userType;
 
-        fetch('http://localhost:5000/users', {
+        fetch('https://glacial-beyond-92478.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'
@@ -98,7 +98,7 @@ const useFirebase = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/users')
+        axios.get('https://glacial-beyond-92478.herokuapp.com/users')
             .then(res => {
                 setAllUsers(res.data);
             })
@@ -114,7 +114,7 @@ const useFirebase = () => {
     }, [allUsers, user.email])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://glacial-beyond-92478.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 setAdmin(data.admin);

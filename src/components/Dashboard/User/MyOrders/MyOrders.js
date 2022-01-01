@@ -38,7 +38,7 @@ const MyOrders = () => {
     const history = useHistory();
 
     useEffect(() => {
-        axios.get('http://localhost:5000/orders')
+        axios.get('https://glacial-beyond-92478.herokuapp.com/orders')
             .then(res => {
                 setOrders(res.data);
             })

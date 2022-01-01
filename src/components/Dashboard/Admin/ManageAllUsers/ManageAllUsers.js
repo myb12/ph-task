@@ -60,7 +60,7 @@ const ManageAllUsers = () => {
     const numOfPage = Math.ceil(allUsers.length / size);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/paginatedUsers?page=${page}&&size=${size}`)
+        axios.get(`https://glacial-beyond-92478.herokuapp.com/paginatedUsers?page=${page}&&size=${size}`)
             .then(res => {
                 setPaginatedUsers(res.data.users);
             })
@@ -110,7 +110,7 @@ const ManageAllUsers = () => {
         if (window.confirm('Do you really want to delete the user?')) {
             ids.forEach(id => {
 
-                fetch(`http://localhost:5000/users/${id}`, {
+                fetch(`https://glacial-beyond-92478.herokuapp.com/users/${id}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.json())
@@ -128,7 +128,7 @@ const ManageAllUsers = () => {
     const handleSingleDelete = (id) => {
 
         if (window.confirm('Do you really want to delete the user?')) {
-            fetch(`http://localhost:5000/users/${id}`, {
+            fetch(`https://glacial-beyond-92478.herokuapp.com/users/${id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())
@@ -178,7 +178,7 @@ const ManageAllUsers = () => {
     // Handler for blocking users 
     const handleBlock = (id) => {
 
-        axios.put(`http://localhost:5000/users/${id}`)
+        axios.put(`https://glacial-beyond-92478.herokuapp.com/users/${id}`)
             .then(res => {
                 if (res.data.matchedCount > 0) {
                     setBlocked(!blocked);
