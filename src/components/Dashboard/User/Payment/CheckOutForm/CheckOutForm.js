@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { Alert, CircularProgress } from '@mui/material';
+import useAuth from '../../../../../hooks/useAuth';
 
 const CheckOutForm = ({ order }) => {
+    const { price, _id } = order;
     const stripe = useStripe();
     const elements = useElements();
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [clientSecret, setClientSecret] = useState('');
+    const [processing, setProcessing] = useState(false);
+    const { user } = useAuth();
+
+    useEffect(() => {
+        fetch('http://localhost:5000/create-payment-intent', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ price })
+        })
+            .then(res => res.json())
+            .then(data => setClientSecret(data.clientSecret));
+    }, [price]);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,6 +37,61 @@ const CheckOutForm = ({ order }) => {
 
         if (card == null) {
             return;
+        }
+        setProcessing(true);
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card,
+        });
+
+        if (error) {
+            setError(error.message);
+            setSuccess('');
+        } else {
+            console.log(paymentMethod);
+            setError('');
+            setProcessing(false);
+        }
+
+        // payment intent
+        const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
+            clientSecret,
+            {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: user.displayName,
+                        email: user.email
+                    },
+                },
+            },
+        );
+
+        if (intentError) {
+            setError(intentError.message);
+            setSuccess('');
+        } else {
+            setError('');
+            setSuccess('Your payment processed successfully.')
+
+            // saving to database
+            const payment = {
+                amount: paymentIntent.amount,
+                created: paymentIntent.created,
+                last4: paymentMethod.card.last4,
+                transaction: paymentIntent.client_secret.slice('_secret')[0]
+            }
+
+            const url = `http://localhost:5000/orders/${_id}`;
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(payment)
+            })
+                .then(res => res.json())
+                .then(data => console.log(data));
         }
 
     }
@@ -38,10 +114,16 @@ const CheckOutForm = ({ order }) => {
                         },
                     }}
                 />
-                <button type="submit" disabled={!stripe}>
-                    Pay
-                </button>
+                {processing ? <CircularProgress></CircularProgress> : <button type="submit" disabled={!stripe || success}>
+                    Pay ${price}
+                </button>}
             </form>
+            {
+                error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>
+            }
+            {
+                success && <Alert severity="success" sx={{ mt: 2 }}>{success}</Alert>
+            }
         </div>
     );
 };

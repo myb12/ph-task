@@ -73,6 +73,7 @@ const MyOrders = () => {
                                         <Button
                                             sx={{ mr: 1, fontSize: 12 }}
                                             onClick={() => handlePay(order._id)}
+                                            disabled={!!order.payment}
                                         >
                                             Pay
                                         </Button>

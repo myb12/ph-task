@@ -25,9 +25,11 @@ const Payment = () => {
                 Pay: ${order.price}
             </Typography>
 
-            <Elements stripe={stripePromise}>
-                <CheckOutForm order={order} />
-            </Elements>
+            {
+                order.price && <Elements stripe={stripePromise}>
+                    <CheckOutForm order={order} />
+                </Elements>
+            }
         </div>
     );
 };
