@@ -37,6 +37,7 @@ const Navigation = () => {
 
     const handleNavigate = (location) => {
         history.push(location);
+        handleClose();
     }
 
     return (
@@ -84,11 +85,12 @@ const Navigation = () => {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>
+                                <MenuItem onClick={() => handleNavigate('profile')}>
                                     <img src={loggedInUserFromDB?.profilePic} alt="" style={{ width: 24, height: 24, borderRadius: '50%', marginRight: 3 }} />
                                     {loggedInUserFromDB?.displayName}
                                 </MenuItem>
                                 <MenuItem onClick={() => handleNavigate('profile')}>Profile</MenuItem>
+                                <MenuItem onClick={() => handleNavigate('home')}>Back to home</MenuItem>
                                 <MenuItem onClick={handleLogOut}>Log out</MenuItem>
                             </Menu>
                         </div>

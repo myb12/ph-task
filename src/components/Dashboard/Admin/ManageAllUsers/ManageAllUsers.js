@@ -125,7 +125,21 @@ const ManageAllUsers = () => {
 
     }
     // Handler for single user deletion 
-    const handleDelete = () => { }
+    const handleSingleDelete = (id) => {
+
+        if (window.confirm('Do you really want to delete the user?')) {
+            fetch(`http://localhost:5000/users/${id}`, {
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        setBlocked(!blocked);
+                    }
+                });
+        }
+    }
+    
     // age range handler 
     const handleAgeRange = (event) => {
 
@@ -270,7 +284,7 @@ const ManageAllUsers = () => {
                                                 user.userStatus ? user.userStatus : 'Block'
                                             }
                                         </Button>
-                                        <IconButton aria-label="delete" onClick={() => handleDelete(user._id)}>
+                                        <IconButton aria-label="delete" onClick={() => handleSingleDelete(user._id)}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </Box>
