@@ -13,6 +13,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useAuth from '../../../../hooks/useAuth';
 import { BiSearchAlt } from 'react-icons/bi';
+import { IoMdArrowDropright, IoMdArrowDropleft } from 'react-icons/io';
+import axios from "axios";
 
 
 
@@ -43,25 +45,40 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const ManageAllUsers = () => {
     const { allUsers } = useAuth();
+    const [paginatedUsers, setPaginatedUsers] = useState([]);
     const [filteredUser, setFilteredUser] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [ageRange, setAgeRange] = useState('');
     const [message, setMessagge] = useState('');
+    const [page, setPage] = useState(0);
+    const size = 10;
+    const numOfPage = Math.ceil(allUsers.length / size);
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/paginatedUsers?page=${page}&&size=${size}`)
+            .then(res => {
+                setPaginatedUsers(res.data.users);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [page]);
+
 
     useEffect(() => {
         if (searchText === '') return;
         setFilteredUser(() =>
-            allUsers.filter((user) =>
+            paginatedUsers.filter((user) =>
                 user.displayName.toLowerCase().match(searchText.toLowerCase()) ||
                 user.email.toLowerCase().match(searchText.toLowerCase()) ||
                 user.phone.toLowerCase().match(searchText.toLowerCase())
             )
         );
-    }, [searchText, allUsers]);
+    }, [searchText, paginatedUsers]);
 
     useEffect(() => {
-        setFilteredUser(allUsers);
-    }, [allUsers])
+        setFilteredUser(paginatedUsers);
+    }, [paginatedUsers, page])
 
     const handleChecked = (e) => {
         console.log(e.target.checked);
@@ -71,8 +88,10 @@ const ManageAllUsers = () => {
     }
 
     const handleAgeRange = (event) => {
-        if (event.target.value === 'none') {
-            setFilteredUser(allUsers);
+
+        setAgeRange(event.target.value);
+        if (!event.target.value) {
+            setFilteredUser(paginatedUsers);
             setMessagge('');
             return;
         }
@@ -80,7 +99,7 @@ const ManageAllUsers = () => {
         const rangeArray = event.target.value.split('-');
         const fromAge = +rangeArray[0];
         const toAge = +rangeArray[1];
-        const filtered = allUsers.filter(user => +user.age >= fromAge && +user.age <= toAge);
+        const filtered = paginatedUsers.filter(user => +user.age >= fromAge && +user.age <= toAge);
 
         if (!filtered.length) {
             setMessagge('No user found between the age range');
@@ -91,7 +110,19 @@ const ManageAllUsers = () => {
         }
     };
 
-    const userToRender = filteredUser?.filter(user => user.email !== 'admin@admin.com');
+    // Pagination handlers 
+
+    const handleNext = () => {
+        if (page === numOfPage) return;
+        setPage(page + 1);
+    }
+
+    const handlePrevious = () => {
+        if (page === 0) return;
+        setPage(page - 1);
+    }
+    console.log(numOfPage);
+
     return (
         <>
 
@@ -123,7 +154,7 @@ const ManageAllUsers = () => {
                     name="ageRange"
 
                 >
-                    <MenuItem value="none">
+                    <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
                     <MenuItem value={'18-25'}>18-25</MenuItem>
@@ -149,7 +180,7 @@ const ManageAllUsers = () => {
                     <TableBody>
                         {/* table data for my orders  */}
                         {
-                            userToRender.map(user => <StyledTableRow key={user._id}>
+                            filteredUser?.map(user => <StyledTableRow key={user._id}>
                                 <StyledTableCell component="th" scope="row">
                                     <Checkbox {...label} onChange={handleChecked} />
                                 </StyledTableCell>
@@ -187,6 +218,20 @@ const ManageAllUsers = () => {
                     message && <Alert severity="error" sx={{ mt: 2, justifyContent: 'center' }}>{message}</Alert>
                 }
             </TableContainer>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
+                {
+                    `Page ${page + 1} of ${numOfPage}`
+                }
+                <Button variant="outlined" onClick={handlePrevious} disabled={page === 0} sx={{
+                    mx: 1
+                }}>
+                    <IoMdArrowDropleft style={{ fontSize: 30 }
+                    } />
+                </Button>
+                <Button variant="outlined" onClick={handleNext} disabled={page === numOfPage - 1}>
+                    <IoMdArrowDropright style={{ fontSize: 30 }} />
+                </Button>
+            </Box>
         </>
     );
 };
